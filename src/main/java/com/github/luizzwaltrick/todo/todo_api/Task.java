@@ -5,12 +5,34 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 @Entity
-public record Task (
-    @Id @GeneratedValue
-    long id,
+public class Task {
 
-    String title,
-    boolean isComplete
-) {
+    @Id
+    @GeneratedValue
+    private Long id;
+    private String title;
+    private boolean isCompleted;
 
+    public Task() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public boolean isComplete() {
+        return isCompleted;
+    }
+
+    public void setComplete(boolean isComplete) {
+        this.isCompleted = isComplete;
+    }
 }

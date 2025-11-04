@@ -1,27 +1,44 @@
 package com.github.luizzwaltrick.todo.todo_api;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
 @RestController
+@RequestMapping("/tasks")
 public class TodoController {
-    private final TaskRepository repository;
+    private final TaskService taskService;
 
-    public TodoController(TaskRepository repository) {
-        this.repository = repository;
+    public TodoController(TaskService taskService) {
+        this.taskService = taskService;
     }
 
-    @GetMapping("/tasks")
+    @GetMapping
     public List<Task> getAllTasks() {
-        return repository.findAll();
+        return taskService.getAllTasks();
     }
 
-    @PostMapping("/tasks")
-    public Task createTask(@RequestBody Task newTask) {
-        return repository.save(newTask);
+    @PostMapping
+    public ResponseEntity<Task> createTask(@RequestBody Task newTask) {
+        Task savedTask = taskService.createTask(newTask);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedTask);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task updatedTask) {
+        return taskService.updateExistingTask(id, updatedTask)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
+        if (taskService.deleteTaskById(id)) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }
