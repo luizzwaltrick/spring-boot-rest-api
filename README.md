@@ -3,7 +3,7 @@
 A minimal RESTful API for managing TODO items, built with Spring Boot. This project is intended as a simple starting point to explore Spring Boot, JPA, and an in-memory H2 database.
 
 ## Tech stack
-- Java 25
+- Java 17
 - Spring Boot 3
   - Spring Web
   - Spring Data JPA
@@ -12,7 +12,7 @@ A minimal RESTful API for managing TODO items, built with Spring Boot. This proj
 - Lombok (optional)
 
 ## Prerequisites
-- Java 25 (or a JDK compatible with your configured `java.version`)
+- Java 17 (or a JDK compatible with your configured `java.version`)
 - Maven (or use the provided Maven Wrapper)
 
 ## Getting started
