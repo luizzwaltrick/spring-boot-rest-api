@@ -1,0 +1,51 @@
+### 1. CREATE a new task
+POST http://localhost:8080/tasks
+Content-Type: application/json
+
+{
+  "title": "Learn Spring Boot",
+  "isComplete": false
+}
+
+### 2. CREATE a second task
+POST http://localhost:8080/tasks
+Content-Type: application/json
+
+{
+  "title": "Write HTTP tests",
+  "isComplete": true
+}
+
+
+### 3. GET all tasks
+GET http://localhost:8080/tasks
+
+
+### 4. UPDATE a task
+PUT http://localhost:8080/tasks/1
+Content-Type: application/json
+
+{
+  "title": "MASTER Spring Boot",
+  "isComplete": true
+}
+
+
+### 5. GET all tasks (to confirm the update)
+GET http://localhost:8080/tasks
+
+
+### 6. DELETE a task
+DELETE http://localhost:8080/tasks/1
+
+
+### 7. GET all tasks (to confirm the delete)
+GET http://localhost:8080/tasks
+
+
+### 8. GET a task that does NOT exist
+GET http://localhost:8080/tasks/99
+
+
+### 9. DELETE a task that does NOT exist
+DELETE http://localhost:8080/tasks/99
