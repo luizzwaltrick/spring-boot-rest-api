@@ -1,4 +1,4 @@
-package com.github.luizzwaltrick.todo.todo_api;
+package task;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

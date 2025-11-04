@@ -1,4 +1,4 @@
-package com.github.luizzwaltrick.todo.todo_api;
+package task;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
