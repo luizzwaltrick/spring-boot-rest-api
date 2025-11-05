@@ -1,5 +1,7 @@
-package task;
+package com.github.luizzwaltrick.todo.todo_api.task;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +23,7 @@ public class TodoController {
     }
 
     @PostMapping
-    public ResponseEntity<Task> createTask(@RequestBody Task newTask) {
+    public ResponseEntity<Task> createTask(@RequestBody @Valid Task newTask) {
         Task savedTask = taskService.createTask(newTask);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(savedTask);
