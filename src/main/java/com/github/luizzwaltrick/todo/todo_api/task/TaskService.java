@@ -2,7 +2,6 @@ package com.github.luizzwaltrick.todo.todo_api.task;
 
 import com.github.luizzwaltrick.todo.todo_api.users.User;
 import com.github.luizzwaltrick.todo.todo_api.users.UserRepository;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -18,7 +17,7 @@ public class TaskService {
         this.userRepository = userRepository;
     }
 
-    public List<Task> getAllTasks() {
+    public List<Task> findAllTasks() {
         return taskRepository.findAll();
     }
 

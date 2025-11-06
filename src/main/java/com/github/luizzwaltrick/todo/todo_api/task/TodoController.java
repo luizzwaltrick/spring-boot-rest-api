@@ -1,6 +1,5 @@
 package com.github.luizzwaltrick.todo.todo_api.task;
 
-import com.github.luizzwaltrick.todo.todo_api.users.User;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +20,7 @@ public class TodoController {
 
     @GetMapping
     public List<Task> getAllTasks() {
-        return taskService.getAllTasks();
+        return taskService.findAllTasks();
     }
 
     @PostMapping
