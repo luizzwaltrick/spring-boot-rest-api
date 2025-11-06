@@ -1,8 +1,11 @@
 package com.github.luizzwaltrick.todo.todo_api.task;
 
+import com.github.luizzwaltrick.todo.todo_api.users.User;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -22,8 +25,12 @@ public class TodoController {
     }
 
     @PostMapping
-    public ResponseEntity<Task> createTask(@RequestBody @Valid Task newTask) {
-        Task savedTask = taskService.createTask(newTask);
+    public ResponseEntity<Task> createTask(@RequestBody @Valid Task newTask,
+                                           @AuthenticationPrincipal UserDetails userDetails) {
+
+        String username = userDetails.getUsername();
+
+        Task savedTask = taskService.createTask(newTask, username);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(savedTask);
     }
@@ -40,6 +47,7 @@ public class TodoController {
         if (taskService.deleteTaskById(id)) {
             return ResponseEntity.noContent().build();
         }
+
         return ResponseEntity.notFound().build();
     }
 }

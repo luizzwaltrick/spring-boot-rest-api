@@ -1,6 +1,7 @@
 ### 1. CREATE a new task
 POST http://localhost:8080/tasks
 Content-Type: application/json
+Authorization: Basic admin password321
 
 {
   "title": "Learn Spring Boot",
@@ -9,6 +10,7 @@ Content-Type: application/json
 
 ### 2. CREATE a second task
 POST http://localhost:8080/tasks
+Authorization: Basic user 93af4066-3343-40d8-9df5-099aedf2a453
 Content-Type: application/json
 
 {
@@ -19,6 +21,7 @@ Content-Type: application/json
 
 ### 3. GET all tasks
 GET http://localhost:8080/tasks
+Authorization: Basic user 93af4066-3343-40d8-9df5-099aedf2a453
 
 
 ### 4. UPDATE a task
