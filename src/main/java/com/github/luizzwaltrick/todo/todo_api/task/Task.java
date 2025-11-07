@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
 
 @Getter
 @Setter
@@ -21,6 +20,7 @@ public class Task {
     @NotBlank(message = "The task title must not be empty.")
     private String title;
 
+    @Column(name="is_complete")
     private boolean isComplete;
 
     @ManyToOne

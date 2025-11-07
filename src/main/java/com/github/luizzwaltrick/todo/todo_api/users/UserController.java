@@ -1,5 +1,6 @@
 package com.github.luizzwaltrick.todo.todo_api.users;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +31,7 @@ public class UserController {
     public ResponseEntity<User> createUser(@RequestBody User newUser) {
         User savedUser = userService.createUser(newUser);
 
-        return ResponseEntity.status(201).body(savedUser);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
 
     @DeleteMapping("/{id}")
