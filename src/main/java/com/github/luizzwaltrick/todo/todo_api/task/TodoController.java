@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import com.github.luizzwaltrick.todo.todo_api.users.dto.TaskResponseDTO;
 import java.util.List;
 
 
@@ -19,23 +20,22 @@ public class TodoController {
     }
 
     @GetMapping
-    public List<Task> getAllTasks() {
+    public List<TaskResponseDTO> getAllTasks() {
         return taskService.findAllTasks();
     }
 
     @PostMapping
-    public ResponseEntity<Task> createTask(@RequestBody @Valid Task newTask,
+    public ResponseEntity<TaskResponseDTO> createTask(@RequestBody @Valid Task newTask,
                                            @AuthenticationPrincipal UserDetails userDetails) {
-
         String username = userDetails.getUsername();
 
-        Task savedTask = taskService.createTask(newTask, username);
+        TaskResponseDTO savedTask = taskService.createTask(newTask, username);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(savedTask);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task updatedTask) {
+    public ResponseEntity<TaskResponseDTO> updateTask(@PathVariable Long id, @RequestBody @Valid Task updatedTask) {
         return taskService.updateExistingTask(id, updatedTask)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());

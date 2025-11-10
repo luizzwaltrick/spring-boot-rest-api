@@ -2,8 +2,11 @@ package com.github.luizzwaltrick.todo.todo_api.task;
 
 import com.github.luizzwaltrick.todo.todo_api.users.User;
 import com.github.luizzwaltrick.todo.todo_api.users.UserRepository;
+import com.github.luizzwaltrick.todo.todo_api.users.dto.TaskResponseDTO;
+import com.github.luizzwaltrick.todo.todo_api.users.dto.UserResponseDTO;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.Optional;
 
 
@@ -17,26 +20,32 @@ public class TaskService {
         this.userRepository = userRepository;
     }
 
-    public List<Task> findAllTasks() {
-        return taskRepository.findAll();
+    public List<TaskResponseDTO> findAllTasks() {
+        return taskRepository.findAll()
+                .stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
-    public Task createTask(Task newTask, String username) {
+    public TaskResponseDTO createTask(Task newTask, String username) {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new IllegalArgumentException("User not found: " + username));
 
         newTask.setUser(user);
+        Task savedTask = taskRepository.save(newTask);
 
-        return taskRepository.save(newTask);
+        return convertToDTO(savedTask);
     }
 
-    public Optional<Task> updateExistingTask(Long id, Task updatedTask) {
+    public Optional<TaskResponseDTO> updateExistingTask(Long id, Task updatedTask) {
         return taskRepository.findById(id)
                 .map(existingTask -> {
                     existingTask.setTitle(updatedTask.getTitle());
                     existingTask.setComplete(updatedTask.isComplete());
 
-                    return taskRepository.save(existingTask);
+                    Task savedTask = taskRepository.save(existingTask);
+
+                    return convertToDTO(existingTask);
                 });
     }
 
@@ -47,5 +56,19 @@ public class TaskService {
             return true;
         }
         return false;
+    }
+
+    private TaskResponseDTO convertToDTO(Task task) {
+        UserResponseDTO userDTO = new UserResponseDTO(
+                task.getUser().getId(),
+                task.getUser().getUsername()
+        );
+
+        return new TaskResponseDTO(
+                task.getId(),
+                task.getTitle(),
+                task.isComplete(),
+                userDTO
+        );
     }
 }

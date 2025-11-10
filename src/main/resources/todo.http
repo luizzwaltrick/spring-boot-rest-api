@@ -10,7 +10,7 @@ Authorization: Basic admin password321
 
 ### 2. CREATE a second task
 POST http://localhost:8080/tasks
-Authorization: Basic user 93af4066-3343-40d8-9df5-099aedf2a453
+Authorization: Basic admin password321
 Content-Type: application/json
 
 {
@@ -21,12 +21,13 @@ Content-Type: application/json
 
 ### 3. GET all tasks
 GET http://localhost:8080/tasks
-Authorization: Basic user 93af4066-3343-40d8-9df5-099aedf2a453
+Authorization: Basic admin password321
 
 
 ### 4. UPDATE a task
 PUT http://localhost:8080/tasks/1
 Content-Type: application/json
+Authorization: Basic admin password321
 
 {
   "title": "MASTER Spring Boot",
@@ -36,14 +37,17 @@ Content-Type: application/json
 
 ### 5. GET all tasks (to confirm the update)
 GET http://localhost:8080/tasks
+Authorization: Basic admin password321
 
 
 ### 6. DELETE a task
-DELETE http://localhost:8080/tasks/1
+DELETE http://localhost:8080/tasks/2
+Authorization: Basic admin password321
 
 
 ### 7. GET all tasks (to confirm the delete)
 GET http://localhost:8080/tasks
+Authorization: Basic admin password321
 
 
 ### 8. GET a task that does NOT exist
